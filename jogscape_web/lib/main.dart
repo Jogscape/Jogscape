@@ -41,10 +41,16 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Align(
-          alignment: Alignment.bottomLeft,
-          child: SizedBox(
-            child: Text(
+        title: Row(
+          children: [
+            Container(
+              height: 150,
+              width: 70,
+              decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage("images/logo.png"),fit: BoxFit.cover),
+              ),
+            ),
+            Text(
               // photo with some space
               "JogScape",
               style: TextStyle(
@@ -52,12 +58,18 @@ class _HomeState extends State<Home> {
                   fontWeight: FontWeight.w400,
                   color: Colors.white),
             ),
-          ),
+          ],
         ),
       ),
-      body: SizedBox(
+      body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("images/background.jpg"),
+            fit: BoxFit.fill,
+          )
+        ),
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: Column(
@@ -95,7 +107,7 @@ class _HomeState extends State<Home> {
                     // width: MediaQuery.of(context).size.width * 0.5,
                     width: 250,
                     child: ElevatedButton(
-                        style: elevatedButtonStyle(Colors.transparent),
+                        style: elevatedButtonStyle(Colors.black),
                         onPressed: () {
                           createAlertDialog(context);
                         },
