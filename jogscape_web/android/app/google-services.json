@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "9599507996",
+    "project_id": "jogscape-72daf",
+    "storage_bucket": "jogscape-72daf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9599507996:android:b997a902184b20bb5309d9",
+        "android_client_info": {
+          "package_name": "com.example.jogscape_web"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9599507996-ihc6og64o5ua6o9al55kqbjgt39tropf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6sowWzA3f7svi3RGioCRxqaoxfrCm4ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9599507996-ihc6og64o5ua6o9al55kqbjgt39tropf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
