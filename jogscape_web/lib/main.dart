@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,6 +63,8 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     getdata();
+    fToast = FToast();
+    fToast!.init(context);
   }
 
   @override
@@ -241,6 +244,7 @@ createAlertDialog(BuildContext context) {
                             print(phoneController.text);
                             print(emailController.text);
                             addDoc();
+                            _showToast();
                             Navigator.pop(context);
                           }
                         },
@@ -280,4 +284,37 @@ textfieldbasicDecoration(hint) {
     ),
     hintText: hint,
   );
+}
+
+FToast? fToast;
+
+_showToast() {
+  Widget toast = Container(
+    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(25.0),
+      color: Colors.greenAccent,
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: const [
+        Icon(Icons.check),
+        SizedBox(
+          width: 12.0,
+        ),
+        Text("Successfully Registered"),
+      ],
+    ),
+  );
+
+  // Custom Toast Position
+  fToast!.showToast(
+      child: toast,
+      toastDuration: Duration(seconds: 2),
+      gravity: ToastGravity.BOTTOM,
+      positionedToastBuilder: (context, child) {
+        return Center(
+          child: child,
+        );
+      });
 }
