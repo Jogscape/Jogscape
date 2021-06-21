@@ -27,13 +27,13 @@ class MyApp extends StatelessWidget {
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-// void getdata() async {
-//   CollectionReference ref = firestore.collection("Pre - User");
-//   QuerySnapshot qs = await ref.get();
-//   qs.docs.forEach((doc) {
-//     print(doc.data());
-//   });
-// }
+void getdata() async {
+  CollectionReference ref = firestore.collection("Pre - User");
+  QuerySnapshot qs = await ref.get();
+  qs.docs.forEach((doc) {
+    print(doc.data());
+  });
+}
 
 void addDoc() async {
   Map<String, dynamic> data = {
@@ -42,7 +42,7 @@ void addDoc() async {
     "Email": emailController.text,
   };
   await firestore.collection('Pre - User').add(data);
-  // print("Success");
+  print("Success");
 }
 
 class Home extends StatefulWidget {
@@ -59,10 +59,11 @@ final _formKey = GlobalKey<FormState>();
 
 class _HomeState extends State<Home> {
   @override
-  // void initState() {
-  //   super.initState();
-  //   getdata();
-  // }
+  void initState() {
+    super.initState();
+    getdata();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -236,7 +237,11 @@ createAlertDialog(BuildContext context) {
                           //     fontSize: 16.0);
                           if (_formKey.currentState!.validate()) {
                             // print("Verification completed");
+                            print(nameController.text);
+                            print(phoneController.text);
+                            print(emailController.text);
                             addDoc();
+                            Navigator.pop(context);
                           }
                         },
                         child: Text("submit".toUpperCase()),
