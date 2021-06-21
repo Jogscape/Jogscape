@@ -47,11 +47,11 @@ class _HomeState extends State<Home> {
             Container(
               height: 150,
               width: 70,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(image: AssetImage("images/logo.png"),fit: BoxFit.cover),
               ),
             ),
-            Text(
+            const Text(
               // photo with some space
               "JogScape",
               style: TextStyle(
@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("images/background.jpg"),
             fit: BoxFit.fill,
