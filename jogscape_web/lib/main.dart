@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Jogscape Coming Soon',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -21,6 +23,26 @@ class MyApp extends StatelessWidget {
       home: const Home(),
     );
   }
+}
+
+FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+void getdata() async {
+  CollectionReference ref = firestore.collection("Pre - User");
+  QuerySnapshot qs = await ref.get();
+  qs.docs.forEach((doc) {
+    print(doc.data());
+  });
+}
+
+void addDoc() async {
+  Map<String, dynamic> data = {
+    "Full Name": nameController.text,
+    "Mobile Number": phoneController.text,
+    "Email": emailController.text,
+  };
+  await firestore.collection('Pre - User').add(data);
+  print("Success");
 }
 
 class Home extends StatefulWidget {
@@ -37,6 +59,12 @@ final _formKey = GlobalKey<FormState>();
 
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    super.initState();
+    getdata();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -47,11 +75,12 @@ class _HomeState extends State<Home> {
             Container(
               height: 150,
               width: 70,
-              decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("images/logo.png"),fit: BoxFit.cover),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("images/logo.png"), fit: BoxFit.cover),
               ),
             ),
-            Text(
+            const Text(
               // photo with some space
               "JogScape",
               style: TextStyle(
@@ -65,12 +94,11 @@ class _HomeState extends State<Home> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("images/background.jpg"),
-            fit: BoxFit.fill,
-          )
-        ),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("images/background.jpg"),
+          fit: BoxFit.fill,
+        )),
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: Column(
@@ -150,11 +178,11 @@ createAlertDialog(BuildContext context) {
                   ),
                   TextFormField(
                     controller: nameController,
-                    validator: (value) {
-                      if (value!.isNotEmpty) {
-                        return "Please type your correct name";
-                      }
-                    },
+                    // validator: (value) {
+                    //   // if (value!.isNotEmpty) {
+                    //   //   return "Please type your correct name";
+                    //   // }
+                    // },
                     decoration: textfieldbasicDecoration("John Doe"),
                   ),
                   const SizedBox(
@@ -209,6 +237,11 @@ createAlertDialog(BuildContext context) {
                           //     fontSize: 16.0);
                           if (_formKey.currentState!.validate()) {
                             // print("Verification completed");
+                            print(nameController.text);
+                            print(phoneController.text);
+                            print(emailController.text);
+                            addDoc();
+                            Navigator.pop(context);
                           }
                         },
                         child: Text("submit".toUpperCase()),
