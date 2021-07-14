@@ -181,11 +181,11 @@ createAlertDialog(BuildContext context) {
                   ),
                   TextFormField(
                     controller: nameController,
-                    // validator: (value) {
-                    //   // if (value!.isNotEmpty) {
-                    //   //   return "Please type your correct name";
-                    //   // }
-                    // },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Please type your correct name";
+                      }
+                    },
                     decoration: textfieldbasicDecoration("John Doe"),
                   ),
                   const SizedBox(
@@ -310,7 +310,7 @@ _showToast() {
   // Custom Toast Position
   fToast!.showToast(
       child: toast,
-      toastDuration: Duration(seconds: 2),
+      toastDuration: const Duration(seconds: 2),
       gravity: ToastGravity.BOTTOM,
       positionedToastBuilder: (context, child) {
         return Center(
